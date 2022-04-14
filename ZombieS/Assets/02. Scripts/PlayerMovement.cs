@@ -13,8 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody playerRigidbody; // 플레이어 캐릭터의 리지드바디
     private Animator playerAnimator; // 플레이어 캐릭터의 애니메이터
 
-    // 시간확인(test)
-    float time2 = 0f;
+
     void Start()
     {
 
@@ -54,12 +53,14 @@ public class PlayerMovement : MonoBehaviour
         playerRigidbody.rotation = playerRigidbody.rotation * Quaternion.Euler(0, turn, 0f);
     }
 
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        // 시간확인하는 코드 (test)
-        Debug.Log("Time : " + (int)Time.time);
-        time2 += Time.deltaTime;
-        Debug.Log("deltaTime : " + (int)time2);
-        Debug.Log("FixedUpdate : " + (float)Time.fixedDeltaTime);
+        IItem item = other.GetComponent<IItem>();
+        if(item != null)
+        {
+            item.Use(gameObject);
+        } 
     }
+
+
 }
