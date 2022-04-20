@@ -20,14 +20,14 @@ public class GunData : ScriptableObject
     /// <summary>
     /// 탄창용량
     /// </summary>
-    public int magCapacity = 25; 
+    public int magCapacity = 25;
 
     /// <summary>
-    /// 탄알 발사 사이의 간격
+    /// 탄알 발사 사이의 간격 0.12f
     /// </summary>
     public float timeBetFire = 0.12f;
     /// <summary>
-    /// 재장전 소요 시간
+    /// 재장전 소요 시간 1.8f
     /// </summary>
     public float reloadTime = 1.8f; 
 

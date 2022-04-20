@@ -12,12 +12,18 @@ public class Gun : MonoBehaviour
     {
         Ready , // 발사준비 됨
         Empty,// 탄창이 빔
-        Reloading// 재장전 중
+        /// <summary>
+        /// 재장전 중
+        /// </summary>
+        Reloading
     }
 
     public State state { get; private set; } // 현재 총의 상태
 
-    public Transform fireTransform; // 탄알이 발사될 위치
+    /// <summary>
+    /// 탄알이 발사될 위치
+    /// </summary>
+    public Transform fireTransform; 
 
     public ParticleSystem muzzleFlashEffect; // 총알 화염 효과
     public ParticleSystem shellEjectEffect; // 탄피 배출효과
@@ -26,18 +32,21 @@ public class Gun : MonoBehaviour
 
     private AudioSource gunAudioPlayer; // 총 소리 재생기
 
-    public GunData gunData; // 총의 현재 데이터
+    /// <summary>
+    /// 총의 현재 데이터
+    /// </summary>
+    public GunData gunData; 
 
     /// <summary>
     /// 사정거리
     /// </summary>
     private float fireDistance = 50f; 
     /// <summary>
-    /// 남은 전체 탄알
+    /// 남은 여분의 전체 탄알
     /// </summary>
     public int ammoRemian = 100;
     /// <summary>
-    /// 현재 남아있는 탄알
+    /// 현재 탄창 안에 남아있는 탄알
     /// </summary>
     public int magAmmo; 
 
@@ -75,7 +84,9 @@ public class Gun : MonoBehaviour
         lastFireTime = 0;
     }
 
-    // 발사 시도 : 총알이 남아있는지 확인하는 중간과정
+    /// <summary>
+    /// 발사 시도 : 총알이 남아있는지 확인하는 중간과정
+    /// </summary>
     private void Fire()
     {
         // 현재 상태가 발사 가능 상태
@@ -89,10 +100,12 @@ public class Gun : MonoBehaviour
         }
     }
 
-    // 실제 발사 처리
+    /// <summary>
+    /// 실제 발사 처리
+    /// </summary>
     private void Shot()
     {
-        // 레이캐스트에 의한 충돌정보를 저장하는 컨테이너
+        // 레이캐스트에 의한 충돌정보를 저장하는 컨테이너        
         RaycastHit hit;
         // 탄알이 맞은 곳(==충돌할 위치)을 저장하는 변수
         Vector3 hitPosition = Vector3.zero;
@@ -158,23 +171,55 @@ public class Gun : MonoBehaviour
         bulletLineRenderer.enabled = false; //쩍
     }
 
-    // 재장전 시도
-    private bool Reload()
+    /// <summary>
+    /// 재장전 시도
+    /// </summary>
+    public bool Reload()
     {
-        return false;
+        if(state == State.Reloading || ammoRemian <= 0 || magAmmo >= gunData.magCapacity)
+        {
+            // 이미 재장전 중이거나 남은 탄알이 없거나
+            // 탄창에 탄알이 이미 가득한 경우 재장전 할 수 없음
+            return false;
+        }
+        // 재장전 처리 시작
+        StartCoroutine(ReloadRoutine());
+        return true;
     }
-
-    // 실제 재장전 처리르 ㄹ진행
-    private IEnumerable ReloadRoutine()
+    
+    /// <summary>
+    /// 실제 재장전 처리를 진행
+    /// </summary>
+    private IEnumerator ReloadRoutine()
     {
         // 현재 상태를 재장전 상태로 전환
         state = State.Reloading;
 
+        // 재장전 소리 재생
+        gunAudioPlayer.PlayOneShot(gunData.reloadClip);
+
         // 재장전 소요시간만큼 쉬기
         yield return new WaitForSeconds(gunData.reloadTime);
 
-        //총의 현재상태를 발사준비된 상태로 변경
+        // 탄창에 채울 탄알 계산
+        int ammoToFill = gunData.magCapacity - magAmmo;
+
+        // 탄창에 채워야 할 탄알이 남은 탄알보다 많다면
+        // 채워야할 탄알 수를 남은 탄알 수에 맞춰 줄임
+        if(ammoRemian < ammoToFill)
+        {
+            ammoToFill = ammoRemian;
+        }
+
+        // 탄창을 채움
+        ammoRemian += ammoToFill;
+
+        // 남은 탄알에서 탄창에 채운만큼 탄알을 뺌
+        ammoRemian -= ammoToFill;
+
+        //총의 현재상태를 발사 준비된 상태로 변경
         state = State.Ready;
     }
     
+    // 만약 저격총을 만든다면? 확대경 필요 ==> 총의 상태를 표현하는 enum 추가,
 }
