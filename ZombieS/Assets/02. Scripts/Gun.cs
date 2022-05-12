@@ -87,7 +87,7 @@ public class Gun : MonoBehaviour
     /// <summary>
     /// 발사 시도 : 총알이 남아있는지 확인하는 중간과정
     /// </summary>
-    private void Fire()
+    public void Fire()
     {
         // 현재 상태가 발사 가능 상태
         // && 마지막 총 발사 지점에서 gunData.timeBetFire 이상의 시간이 지남
