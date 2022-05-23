@@ -17,16 +17,16 @@ public class GunData : ScriptableObject
     public AudioClip reloadClip;
 
     /// <summary>
-    /// 총의 공격력
+    /// 총의 공격력 25
     /// </summary>
     public float damage = 25; 
 
     /// <summary>
-    /// 처음에 주어질 전체 탄알
+    /// 처음에 주어질 전체 탄알 100
     /// </summary>
     public int startAmmoRemain = 100;
     /// <summary>
-    /// 탄창 용량
+    /// 탄창 용량 25
     /// </summary>
     public int magCapacity = 25;
 

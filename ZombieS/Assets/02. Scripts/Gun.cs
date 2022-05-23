@@ -38,11 +38,11 @@ public class Gun : MonoBehaviour
     public GunData gunData; 
 
     /// <summary>
-    /// 사정거리
+    /// 사정거리 50f
     /// </summary>
     private float fireDistance = 50f; 
     /// <summary>
-    /// 남은 여분의 전체 탄알
+    /// 남은 전체 탄알
     /// </summary>
     public int ammoRemian = 100;
     /// <summary>
@@ -87,10 +87,10 @@ public class Gun : MonoBehaviour
     }
 
     /// <summary>
-    /// 발사 시도 : 총알이 남아있는지 확인하는 중간과정
+    /// 발사 시도 : 총알이 남아있는지 확인하는 중간과정, 총이 가지고 있는 기능이지만 사용자, 즉, 슈터가 작동 시킨다. 
     /// </summary>
-    public void Fire()
-    {
+    public void Fire() 
+    { 
         // 현재 상태가 발사 가능 상태
         // && 마지막 총 발사 지점에서 gunData.timeBetFire 이상의 시간이 지남
         if(state == State.Ready && Time.time >= lastFireTime + gunData.timeBetFire)
@@ -107,8 +107,9 @@ public class Gun : MonoBehaviour
     /// </summary>
     private void Shot()
     {
-        // 레이캐스트에 의한 충돌정보를 저장하는 컨테이너        
+        // 레이캐스트에 의한 충돌정보를 저장하는 컨테이너
         RaycastHit hit;
+
         // 탄알이 맞은 곳(==충돌할 위치)을 저장하는 변수
         Vector3 hitPosition = Vector3.zero;
 
@@ -126,28 +127,29 @@ public class Gun : MonoBehaviour
                 // 상대방의 함수를 실행시켜 상대방에 대미지 주기
                 target.OnDamage(gunData.damage, hit.point, hit.normal);
             }
-            // 레이가 충돌한 위치 저장
+            // 레이가 충돌한 위치 저장 : 못가져와도 라인렌더러를 그려줘야한다.
             hitPosition = hit.point;
         }
         else
         {
-            // 레이가 다른 물체와 충돌하지 않았따면
-            // 탄알이 최대 사정거리까지 날아갔을 떄의 위치를 충돌 위치로 사용
+            // 레이가 다른 물체와 충돌하지 않았다면
+            // 탄알이 최대 사정거리까지 날아갔을 때의 위치를 충돌 위치로 사용
             hitPosition = fireTransform.position + fireTransform.forward * fireDistance;
         }
 
-        // 발사 이펙트 재생 시작
+        // 발사 이펙트 재생 시작 hitPosition:충돌한 위치값
         StartCoroutine(ShotEffect(hitPosition));
  
         // 남은 탄알 수를 -1
-        magAmmo--;
+        magAmmo--; // 감소연산자 -1 씩 감소
         if(magAmmo <= 0)
         {
-
+            // 탄창에 남은 총알이 없다면. 총의 현재 상태를 Empty로 갱신
             state = State.Empty;
         }
     }
 
+    // IEnumerator : 지연시간 코루틴 사용할거면 명시 필수 
     // 발사 이펙트와 소리를 재새앟고 탄알 궤적을 그림
     private IEnumerator ShotEffect(Vector3 hitPosition)
     {
@@ -166,7 +168,7 @@ public class Gun : MonoBehaviour
         // 라인 렌더러를 활성화 하여 탄알 궤적을 그림
         bulletLineRenderer.enabled = true; //번
 
-        // 0.03초 동안 잠시 처리를 대기
+        // 0.03초 동안 잠시 처리를 대기 : 번쩍하는 동안만 보여쥐 위한 0.03초
         yield return new WaitForSeconds(0.03f);
 
         // 라인렌더러를 비활성화하여 탄알 궤적을 지움
@@ -186,7 +188,7 @@ public class Gun : MonoBehaviour
         }
         // 재장전 처리 시작
         StartCoroutine(ReloadRoutine());
-        return true;
+        return true; // 재장전 됬다고 알림
     }
     
     /// <summary>
@@ -214,8 +216,7 @@ public class Gun : MonoBehaviour
         }
 
         // 탄창을 채움
-        ammoRemian += ammoToFill;
-
+        magAmmo += ammoToFill;
         // 남은 탄알에서 탄창에 채운만큼 탄알을 뺌
         ammoRemian -= ammoToFill;
 
