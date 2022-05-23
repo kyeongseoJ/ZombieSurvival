@@ -51,7 +51,7 @@ public class Gun : MonoBehaviour
     public int magAmmo; 
 
     /// <summary>
-    /// 총을 마지막으로 발사한 시점
+    /// 총을 마지막으로 발사한 시점, 연사속도를 조절해주기 위해 필요
     /// </summary>
     private float lastFireTime; 
 
@@ -68,6 +68,7 @@ public class Gun : MonoBehaviour
 
     }
 
+    // 컴포넌트의 활성화 <==> OmDisable() 2개 사용해서 오브젝트풀링 적용해서 사용했었다.
     private void OnEnable()
     {
         // 총 상태 초기화
@@ -79,6 +80,7 @@ public class Gun : MonoBehaviour
 
         // 총의 현재 상태를 총을 쏠 준비가 된 상태로 변경
         state = State.Ready;
+       // 동일하다. enum의 기능  state = 0;
 
         // 마지막으로 총을 쏜 시점을 초기화
         lastFireTime = 0;

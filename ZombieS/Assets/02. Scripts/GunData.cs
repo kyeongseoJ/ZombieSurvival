@@ -7,23 +7,31 @@ using UnityEngine;
 public class GunData : ScriptableObject
 {
     // 오디오 클립 할당
-    public AudioClip shotClip; // 발사 소리
-    public AudioClip reloadClip; // 재장전 소리
+    /// <summary>
+    /// 발사 소리
+    /// </summary>
+    public AudioClip shotClip;
+    /// <summary>
+    /// 재장전 소리
+    /// </summary>
+    public AudioClip reloadClip;
 
-    
-    public float damage = 25; // 공격력
+    /// <summary>
+    /// 총의 공격력
+    /// </summary>
+    public float damage = 25; 
 
     /// <summary>
     /// 처음에 주어질 전체 탄알
     /// </summary>
     public int startAmmoRemain = 100;
     /// <summary>
-    /// 탄창용량
+    /// 탄창 용량
     /// </summary>
     public int magCapacity = 25;
 
     /// <summary>
-    /// 탄알 발사 사이의 간격 0.12f
+    /// 탄알 발사 사이의 간격 0.12f 연사속도 조절
     /// </summary>
     public float timeBetFire = 0.12f;
     /// <summary>
