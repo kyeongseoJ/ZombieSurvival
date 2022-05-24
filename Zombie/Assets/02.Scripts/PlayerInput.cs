@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-// 플레이어 캐릭터를 조작하기 위한 사용자 입력을 감지
+// 플레이어 캐릭터를 조작하기 위한 사용자 입력을 감지 : input manager에서 관리
 // 감지된 입력값을 다른 컴포넌트가 사용할 수 있도록 제공
 public class PlayerInput : MonoBehaviour
 {
@@ -16,8 +16,14 @@ public class PlayerInput : MonoBehaviour
     // 프로퍼티 : 값 할당은 내부에서만 가능
     public float move { get; private set; } // 감지된 움직임 입력값
     public float rotate { get; private set; } // 감지된 회전 입력값
-    public bool fire { get; private set; } // 감지된 발사 입력값
-    public bool reload { get; private set; } // 감지된 재장전 입력값
+    /// <summary>
+    /// 감지된 발사 입력값
+    /// </summary>
+    public bool fire { get; private set; } 
+    /// <summary>
+    /// 감지된 재장전 입력값
+    /// </summary>
+    public bool reload { get; private set; } 
 
     void Update() // 매프레임 사용자 입력을 감지
     {

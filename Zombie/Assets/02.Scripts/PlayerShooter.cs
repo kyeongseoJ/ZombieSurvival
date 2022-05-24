@@ -62,7 +62,7 @@ public class PlayerShooter : MonoBehaviour
         }
         else if (PlayerInput.reload)
         {
-            if (gun.Reload())
+            if (gun.Reload()) //메서드가 반환하는 값이 bool, true면 작동
             {
                 // 재장전 성공 시에만 재장전 애니메이션 재생
                 playerAnimator.SetTrigger("Reload");
@@ -88,7 +88,7 @@ public class PlayerShooter : MonoBehaviour
         // 총의 기준점 gunPivot을 3D 모델의 오른쪽 팔꿈치로 이동
         gunPivot.position = playerAnimator.GetIKHintPosition(AvatarIKHint.RightElbow);
 
-        // IK를 사용하여 왼손의 위치와 회전을 총의 왼쪽 손잡이에 맞춤
+        // IK를 사용하여 왼손의 위치와 회전을 총의 왼쪽 손잡이에 맞춤 SET ==> 값을 사용한다. 쓴다.
         playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
         playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
 
