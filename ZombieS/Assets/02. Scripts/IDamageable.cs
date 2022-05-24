@@ -1,18 +1,18 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// °ø°İ´çÇÏ´Â ¸ğµç ´ë»óÀº IDamageableÀ» »ó¼Ó¹Ş´Â´Ù.
+/// ê³µê²©ë‹¹í•˜ëŠ” ëª¨ë“  ëŒ€ìƒì€ IDamageableì„ ìƒì†ë°›ëŠ”ë‹¤.
 /// </summary>
 public interface IDamageable 
 {
     /// <summary>
-    /// ¹«Á¶°Ç ÀÛ¼ºµÇ¾ßÇÏ´Â ¸Ş¼­µå
+    /// ë¬´ì¡°ê±´ ì‘ì„±ë˜ì•¼í•˜ëŠ” ë©”ì„œë“œ
     /// </summary>
-    /// <param name="damage"> ´ë¹ÌÁö Å©±â </param>
-    /// <param name="hitPoint"> °ø°İ´çÇÑ À§Ä¡ </param>
-    /// <param name="hitnormal">°ø°İ´çÇÑ Ç¥¸éÀÇ ¹æÇâ</param>
+    /// <param name="damage"> ëŒ€ë¯¸ì§€ í¬ê¸° </param>
+    /// <param name="hitPoint"> ê³µê²©ë‹¹í•œ ìœ„ì¹˜ </param>
+    /// <param name="hitnormal">ê³µê²©ë‹¹í•œ í‘œë©´ì˜ ë°©í–¥</param>
     void OnDamage(float damage, Vector3 hitPoint, Vector3 hitnormal);
-    //IDamageable ==> ÀÎÅÍÆäÀÌ½º == ±Ô°İ 
+    //IDamageable ==> ì¸í„°í˜ì´ìŠ¤ == ê·œê²© 
 }

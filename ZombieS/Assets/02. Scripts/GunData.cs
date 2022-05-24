@@ -1,41 +1,41 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 
-// ¿ìÅ¬¸¯ create ½Ã GunData Ç×¸ñÀ» Ãß°¡ÇÏ°Ú´Ù´Â ÄÚµå ÀÛ¼º
-// fileName Ã³À½ Á¦½ÃµÉ ÀÌ¸§À» ÁöÁ¤ 
+// ìš°í´ë¦­ create ì‹œ GunData í•­ëª©ì„ ì¶”ê°€í•˜ê² ë‹¤ëŠ” ì½”ë“œ ì‘ì„±
+// fileName ì²˜ìŒ ì œì‹œë  ì´ë¦„ì„ ì§€ì • 
 [CreateAssetMenu(menuName = "Scriptable/GunData", fileName ="Gun Data")]
 public class GunData : ScriptableObject
 {
-    // ¿Àµğ¿À Å¬¸³ ÇÒ´ç
+    // ì˜¤ë””ì˜¤ í´ë¦½ í• ë‹¹
     /// <summary>
-    /// ¹ß»ç ¼Ò¸®
+    /// ë°œì‚¬ ì†Œë¦¬
     /// </summary>
     public AudioClip shotClip;
     /// <summary>
-    /// ÀçÀåÀü ¼Ò¸®
+    /// ì¬ì¥ì „ ì†Œë¦¬
     /// </summary>
     public AudioClip reloadClip;
 
     /// <summary>
-    /// ÃÑÀÇ °ø°İ·Â 25
+    /// ì´ì˜ ê³µê²©ë ¥ 25
     /// </summary>
     public float damage = 25; 
 
     /// <summary>
-    /// Ã³À½¿¡ ÁÖ¾îÁú ÀüÃ¼ Åº¾Ë 100
+    /// ì²˜ìŒì— ì£¼ì–´ì§ˆ ì „ì²´ íƒ„ì•Œ 100
     /// </summary>
     public int startAmmoRemain = 100;
     /// <summary>
-    /// ÅºÃ¢ ¿ë·® 25
+    /// íƒ„ì°½ ìš©ëŸ‰ 25
     /// </summary>
     public int magCapacity = 25;
 
     /// <summary>
-    /// Åº¾Ë ¹ß»ç »çÀÌÀÇ °£°İ 0.12f ¿¬»ç¼Óµµ Á¶Àı
+    /// íƒ„ì•Œ ë°œì‚¬ ì‚¬ì´ì˜ ê°„ê²© 0.12f ì—°ì‚¬ì†ë„ ì¡°ì ˆ
     /// </summary>
     public float timeBetFire = 0.12f;
     /// <summary>
-    /// ÀçÀåÀü ¼Ò¿ä ½Ã°£ 1.8f
+    /// ì¬ì¥ì „ ì†Œìš” ì‹œê°„ 1.8f
     /// </summary>
     public float reloadTime = 1.8f; 
 

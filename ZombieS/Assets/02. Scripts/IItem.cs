@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public interface IItem 
 {
-    // ¹«Á¶°Ç ±¸ÇöÇØ¾ßÇÒ Á¦¾à , ¸Ş¼­µå 
+    // ë¬´ì¡°ê±´ êµ¬í˜„í•´ì•¼í•  ì œì•½ , ë©”ì„œë“œ 
 
     /// <summary>
-    /// ¾ÆÀÌÅÛÀ» »ç¿ëÇÏ´Â ¸Ş¼­µå 
+    /// ì•„ì´í…œì„ ì‚¬ìš©í•˜ëŠ” ë©”ì„œë“œ 
     /// </summary>
     void Use(GameObject target);
 }

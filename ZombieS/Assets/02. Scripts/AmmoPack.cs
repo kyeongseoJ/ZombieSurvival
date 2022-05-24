@@ -1,9 +1,9 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ÃÑ¾Ë ¾ÆÀÌÅÛ
+/// ì´ì•Œ ì•„ì´í…œ
 /// </summary>
 public class AmmoPack : MonoBehaviour, IItem
 {
@@ -11,8 +11,8 @@ public class AmmoPack : MonoBehaviour, IItem
     public int ammo = 30;
     public void Use(GameObject target)
     {
-        // target¿¡ Åº¾ËÀ» Ãß°¡ÇÏ´Â Ã³¸®
-        Debug.Log("Åº¾ËÀÌ Áõ°¡Çß´Ù" + ammo); // È®ÀÎ¿ë
+        // targetì— íƒ„ì•Œì„ ì¶”ê°€í•˜ëŠ” ì²˜ë¦¬
+        Debug.Log("íƒ„ì•Œì´ ì¦ê°€í–ˆë‹¤" + ammo); // í™•ì¸ìš©
     }
 
 

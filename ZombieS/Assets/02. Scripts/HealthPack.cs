@@ -1,18 +1,18 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-// Ã¼·ÂÈ¸º¹½ÃÅ°´Â ¾ÆÀÌÅÛ
+// ì²´ë ¥íšŒë³µì‹œí‚¤ëŠ” ì•„ì´í…œ
 public class HealthPack : MonoBehaviour, IItem
 {
-    // È¸º¹·® 
+    // íšŒë³µëŸ‰ 
     public float health = 50;
 
     public void Use(GameObject target)
     {
-        // targetÀÇ Ã¼·ÂÀ» È¸º¹ÇÏ´Â Ã³¸®
-        Debug.Log("Ã¼·ÂÀ» È¸º¹Çß´Ù : " + health); //È®ÀÎ¿ë
+        // targetì˜ ì²´ë ¥ì„ íšŒë³µí•˜ëŠ” ì²˜ë¦¬
+        Debug.Log("ì²´ë ¥ì„ íšŒë³µí–ˆë‹¤ : " + health); //í™•ì¸ìš©
     }
 
 

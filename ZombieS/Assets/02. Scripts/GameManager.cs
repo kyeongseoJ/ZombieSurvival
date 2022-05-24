@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("¾À¿¡ µÎ°³ÀÌ»óÀÇ °ÔÀÓ¸Å´ÏÀú°¡ Á¸ÀçÇÕ´Ï´Ù.");
+            Debug.Log("ì”¬ì— ë‘ê°œì´ìƒì˜ ê²Œì„ë§¤ë‹ˆì €ê°€ ì¡´ì¬í•©ë‹ˆë‹¤.");
             Destroy(gameObject);
             
         }
