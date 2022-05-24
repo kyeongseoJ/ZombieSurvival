@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,8 +8,8 @@ public class AmmoPack : MonoBehaviour, IItem
 
     public void Use(GameObject target)
     {
-        // target¿¡ Åº¾ËÀ» Ãß°¡ÇÏ´Â Ã³¸®
-        Debug.Log("Åº¾ËÀÌ Áõ°¡Çß´Ù : " + ammo);
+        // targetì— íƒ„ì•Œì„ ì¶”ê°€í•˜ëŠ” ì²˜ë¦¬
+        Debug.Log("íƒ„ì•Œì´ ì¦ê°€í–ˆë‹¤ : " + ammo);
     }
 
     private void Start()

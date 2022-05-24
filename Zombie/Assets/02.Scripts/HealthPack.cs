@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,8 +8,8 @@ public class HealthPack : MonoBehaviour, IItem
 
     public void Use(GameObject target)
     {
-        // targetÀÇ Ã¼·ÂÀ» È¸º¹ÇÏ´Â Ã³¸®
-        Debug.Log("Ã¼·ÂÀ» È¸º¹Çß´Ù : " + health);
+        // targetì˜ ì²´ë ¥ì„ íšŒë³µí•˜ëŠ” ì²˜ë¦¬
+        Debug.Log("ì²´ë ¥ì„ íšŒë³µí–ˆë‹¤ : " + health);
     }
 
     // Start is called before the first frame update
