@@ -4,7 +4,7 @@ using UnityEngine.UI; // UI 관련 코드
 // 플레이어 캐릭터의 생명체로서의 동작을 담당
 public class PlayerHealth : LivingEntity
 {
-    public Slider healthSlider; // 체력을 표시할 uI슬라이더  
+    public Slider healthSlider; // 체력을 표시할 uI슬라이더  -> 스크립터블 오브젝트로 변환해서 관리하면 좋다.
     
     public AudioClip deathClip; // 사망소리
     public AudioClip hitClip; // 피격소리
@@ -23,8 +23,13 @@ public class PlayerHealth : LivingEntity
 
         playerMovement = GetComponent<PlayerMovement>();
         playerShooter = GetComponent<PlayerShooter>();
+
+        // 자식중 해당 요소를 가진게 있다면 가져오기 연습 : Man 오브젝트(playermovement.cs넣고) 만들어서 캐릭터 자식요소로 넣기
+        // PlayerMovement childMovement;
+        // childMovement = GetComponentInChildren<PlayerMovement>();
     }
 
+    // 재정의 : 오버라이드, base : 상속받은 부모 지칭
     protected override void OnEnable(){
         // LivingEntity의 OnEnable() 실행(상태초기화)
         base.OnEnable();
@@ -83,6 +88,7 @@ public class PlayerHealth : LivingEntity
         playerShooter.enabled = false;
     }
 
+    // Collider : 충돌한 대상의 정보를 담고 있는 컨테이너
     private void OnTriggerEnter(Collider other) 
     {
         // 아이템과 충돌한 경우 해당 아이템을 사용하는 처리    
