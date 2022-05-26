@@ -88,6 +88,11 @@ public class PlayerHealth : LivingEntity
         playerShooter.enabled = false;
     }
 
+    // private void OnDisable() {
+    //     playerMovement.enabled = false;
+    //     playerShooter.enabled = false;
+    // }
+
     // Collider : 충돌한 대상의 정보를 담고 있는 컨테이너
     private void OnTriggerEnter(Collider other) 
     {
@@ -96,9 +101,12 @@ public class PlayerHealth : LivingEntity
         if(!dead){
             // 충돌한 상대방으로부터 IItem 컴포넌트 가져오기 시도
             IItem item = other.GetComponent<IItem>();
-            if(item != null){
+            if(item != null)
+            {
                 // user 메서드를 실행하여 아이템 사용
                 item.Use(gameObject);
+
+                // 아이템 습득 소리 재생 
                 palyerAudioPlayer.PlayOneShot(itemPickupClip);
             }
         }
