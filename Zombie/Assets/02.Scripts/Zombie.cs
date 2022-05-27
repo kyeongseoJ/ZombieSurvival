@@ -19,7 +19,7 @@ public class Zombie : LivingEntity
     private Renderer zombieRenderer; // 랜더러 컴포넌트
 
     public float damage =20f; // 공격력
-    public float timeBetAttack = 0.5f; // 공격 간격
+    public float timeBetAttack = 0.5f; // 공격 간격, 좀비의 공격 주기
     private float lastAttackTime; // 마지막 공격 시점
 
     //추적할 대상이 존재하는지 알려주는 프로퍼티
@@ -81,13 +81,14 @@ public class Zombie : LivingEntity
                 // 추적 대상 없음 : AI 이동 중지
                 navMeshAgent.isStopped = true;
 
-                //20유닛의 반지름을 가진 가상의 구를 그렸을 때 구와 겹치는 모든 콜라이더를 가져옴
+                // 20유닛의 반지름을 가진 가상의 구를 그렸을 때 구와 겹치는 모든 콜라이더를 가져옴
                 // 단, whatisTarget 레이어를 가진 콜라이더만 가져오도록 필터링
                 Collider[] colliders = Physics.OverlapSphere(transform.position, 20f, whatIsTarget);
 
                 // 모든 콜라이더를 순회하면서 살아있는 LivingEntity 찾기
                 for(int i =0; i < colliders.Length; i++){
                     // 콜라이더로부터 LivingEntity 컴포넌트 가져오기
+                    // 가장 가까운 대상부터 배열에 담기게 되고 플레이어가 여럿일 때 가장 가까운 대상을 쫓게 된다.
                     LivingEntity livingEntity = colliders[i].GetComponent<LivingEntity>();
 
                     // LivingEntity 컴폰넌트가 존재하며, 해당 LivingEntity가 살아있다면 
@@ -126,7 +127,7 @@ public class Zombie : LivingEntity
         // LivingEntity의 Die()를 실행하여 기본 사망 처리 실행
         base.Die();
 
-        // 다른 AI를 방해하지 않도록 자신의 모든 콜라이더를 비활성화
+        // 다른 AI를 방해하지 않도록 자신의 모든 콜라이더를 비활성화 : 죽고 없는데 콜라이더만 남아있으면 경로에 방해가 된다.
         Collider[] zombieColliders = GetComponents<Collider>();
         for(int i = 0; i < zombieColliders.Length; i++)
         {
@@ -142,26 +143,32 @@ public class Zombie : LivingEntity
         // 사망 효과음 재생
         zombieAudioPlayer.PlayOneShot(deathSound);
     }
-
+    private void OnTriggerEnter(Collider other) {
+            // 공격 애니 실행
+            zombieAnimator.SetTrigger("Attack");
+    }
+    
+    // 트리거 충돌한 상대방 게임 오브젝트가 추적 대상이라면 공격 실행되는 메서드
     private void OnTriggerStay(Collider other) {
         // 자신이 사망하지 않았으며,
-        //최근 공격 시점에서 timeBetAttack 이상 시간이 지났다면, 공격 가능
+        //최근 공격 시점에서 timeBetAttack(0.5f)이상 시간이 지났다면, 공격 가능
         if(!dead && Time.time >= lastAttackTime + timeBetAttack){
             // 상대방의 LivingEntity 타입 가져오기 시도
             LivingEntity attackTarget = other.GetComponent<LivingEntity>();
             
-            // 트리거 충돌한 상대방 게임 오브젝트가 추적 대상이라면 공격 실행
             // 상대방의 LivingEntity 가 자신의 추적 대상이라면 공격 실행
             if(attackTarget != null && attackTarget == targetEntity){
+
                 // 최근 공격 시간 갱신
                 lastAttackTime = Time.time;
 
-                // 상대방의 피격 위치와 피갹 방향을 근삿값으로 계산
+                // 상대방의 피격 위치와 피갹 방향을 근삿값으로 계산 : 박스콜라이더의 영역의 위치를 정확하게 지정할 수 없기 때문
                 Vector3 hitPoint = other.ClosestPoint(transform.position);
                 Vector3 hitNormal = transform.position - other.transform.position;
 
                 // 공격 실행
                 attackTarget.OnDamage(damage, hitPoint, hitNormal);
+                
             }
         }
         
