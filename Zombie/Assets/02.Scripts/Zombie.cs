@@ -20,7 +20,6 @@ public class Zombie : LivingEntity
 
     public float damage =20f; // 공격력
     public float timeBetAttack = 0.5f; // 공격 간격
-
     private float lastAttackTime; // 마지막 공격 시점
 
     //추적할 대상이 존재하는지 알려주는 프로퍼티
@@ -47,12 +46,17 @@ public class Zombie : LivingEntity
     }
 
     // 좀비 AI의 초기 스펙을 결정하는 셋업 메서드
-    // public void Setup(ZombieData zombieData){
+    public void Setup(ZombieData zombieData){
             // 체력 설정
+            startingHealth = zombieData.health;
+            health = zombieData.damage;
             // 공격력 설정
+            damage = zombieData.damage;
             // 내비메시 에이전트의 이동속도 설정
+            navMeshAgent.speed = zombieData.speed;
             // 랜더러가 사용중인 머터리얼의 컬러를 변경, 외형 색이 변함
-    // }
+            zombieRenderer.material.color = zombieData.skinColor;
+    }
 
     private void Start() {
         // 게임 오브젝트 활성화와 동시에 AI 추적 루틴 시작
@@ -123,10 +127,15 @@ public class Zombie : LivingEntity
         base.Die();
 
         // 다른 AI를 방해하지 않도록 자신의 모든 콜라이더를 비활성화
+        Collider[] zombieColliders = GetComponents<Collider>();
+        for(int i = 0; i < zombieColliders.Length; i++)
+        {
+            zombieColliders[i].enabled = false;
+        }
 
         // AI 추적을 중지하고 내비메시 컴포넌트를 비활성화
         navMeshAgent.isStopped = true;
-        navMeshAgent.enabled = false;
+        // navMeshAgent.enabled = false;
 
         // 사망 애니메이션 재생
         zombieAnimator.SetTrigger("Die");
@@ -135,7 +144,28 @@ public class Zombie : LivingEntity
     }
 
     private void OnTriggerStay(Collider other) {
-        // 트러거 충돌한 상대방 게임 오브젝트가 추적 대상이라면 공격 실행
+        // 자신이 사망하지 않았으며,
+        //최근 공격 시점에서 timeBetAttack 이상 시간이 지났다면, 공격 가능
+        if(!dead && Time.time >= lastAttackTime + timeBetAttack){
+            // 상대방의 LivingEntity 타입 가져오기 시도
+            LivingEntity attackTarget = other.GetComponent<LivingEntity>();
+            
+            // 트리거 충돌한 상대방 게임 오브젝트가 추적 대상이라면 공격 실행
+            // 상대방의 LivingEntity 가 자신의 추적 대상이라면 공격 실행
+            if(attackTarget != null && attackTarget == targetEntity){
+                // 최근 공격 시간 갱신
+                lastAttackTime = Time.time;
+
+                // 상대방의 피격 위치와 피갹 방향을 근삿값으로 계산
+                Vector3 hitPoint = other.ClosestPoint(transform.position);
+                Vector3 hitNormal = transform.position - other.transform.position;
+
+                // 공격 실행
+                attackTarget.OnDamage(damage, hitPoint, hitNormal);
+            }
+        }
+        
+
     }
 
     
