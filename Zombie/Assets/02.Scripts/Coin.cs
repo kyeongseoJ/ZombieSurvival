@@ -9,7 +9,7 @@ public class Coin : MonoBehaviour, IItem
     {
         // 게임매니저에 접근해 점수 추가
         GameManager.instance.AddScore(score);
-        //사용되었으므로 자신을 파괴
+        // 사용되었으므로 자신을 파괴
         Destroy(gameObject);
     }
 }
