@@ -43,10 +43,13 @@ public class ItemSpawner : MonoBehaviour
         Vector3 spawnPosition = GetRandomPointOnNavMesh(palyerTransform.position, maxDistance);
         // 바닥에서 0.5만큼 위로 올리기
         spawnPosition += Vector3.up * 0.5f;
+        // 아이템을 랜덤으로 선택
         GameObject selectedItem = items[Random.Range(0, items.Length)];
-        // 아이템 중 하나를 무작위로 골라 랜덤 위치에 생성
+        // 아이템 중 하나를 무작위로 골라 랜덤 위치에 생성 identity: (0, 0, 0)
         GameObject item = Instantiate(selectedItem, spawnPosition, Quaternion.identity);
-        // 생성된 아이템을 파괴
+
+        // 생성된 아이템을 파괴 : 이 과정 때문에 윗줄 코드로 아이템을 담아준다. 
+        // 만약 플레이어가 아이템을 획득을 못했다면 파괴해줘야한다. 때문에 5초 뒤 파괴시킨다.
         Destroy(item, 5f);
     }
 
@@ -62,6 +65,7 @@ public class ItemSpawner : MonoBehaviour
         NavMeshHit hit;
 
         // maxDistance 반경 안에서 randomPos에 가장 가까운 내비메시 위의 한 점을 찾음
+        // areaMask 에 해당하는 NavMesh 중에서 maxDistance 반경 내에서 sourcePositio에 가장 가까운 위치를 찾아서 그 결과를 hit에 담음
         NavMesh.SamplePosition(randomPOs, out hit, distance, NavMesh.AllAreas);
 
         // 찾은 점 반환
