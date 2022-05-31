@@ -6,9 +6,9 @@ using UnityEngine;
 public class LivingEntity : MonoBehaviour, IDamageable
 {
     /// <summary>
-    /// 시작체력
+    /// 시작 체력
     ///</summary>
-    public float startingHealth = 100f;
+    public float startingHealth = 200f;
     /// <summary>
     /// 현재체력
     ///</summary>
