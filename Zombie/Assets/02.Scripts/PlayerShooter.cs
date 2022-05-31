@@ -68,6 +68,7 @@ public class PlayerShooter : MonoBehaviour
                 playerAnimator.SetTrigger("Reload");
             }
         }
+        UpdateUI();
     }
 
     /// <summary>

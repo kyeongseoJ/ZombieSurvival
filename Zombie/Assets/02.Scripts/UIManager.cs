@@ -27,8 +27,8 @@ public class UIManager : MonoBehaviour
     public GameObject gameoverUI; // 게임오버 시 활성화 할 UI
 
     // 탄알 텍스트 갱신
-    public void UpdateAmmoText(int magAmmo, int RemainAmmo){
-        ammoText.text = magAmmo + "/"+ RemainAmmo;
+    public void UpdateAmmoText(int magAmmo, int remainAmmo){
+        ammoText.text = magAmmo + "/"+ remainAmmo;
     }
     // 점수 텍스트 갱신
     public void UpdateScoreText(int newScore){

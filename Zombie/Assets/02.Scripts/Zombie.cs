@@ -46,6 +46,7 @@ public class Zombie : LivingEntity
     }
 
     // 좀비 AI의 초기 스펙을 결정하는 셋업 메서드
+    // ZombieData => 스크립터블 오브젝트
     public void Setup(ZombieData zombieData){
             // 체력 설정
             startingHealth = zombieData.health;

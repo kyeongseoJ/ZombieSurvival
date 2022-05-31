@@ -14,6 +14,7 @@ public class ZombieSpawner : MonoBehaviour
     private List<Zombie> zombies = new List<Zombie>(); // 생성된 좀비를 담는 리스트
     private int wave; // 현재 웨이브
 
+    // 플레잉어가 좀비를 다 죽이기 전까지 업데이트가 계속 다시 실행이 된다.
     private void Update() 
     {
         // 게임오버 상태일 때는 생성하지 않음
